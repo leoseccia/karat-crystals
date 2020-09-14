@@ -1,9 +1,7 @@
-// TODO: split into two files... name and gender
-
 // ==UserScript==
 // @name         Karat Form Crystals
 // @namespace    http://www.leoseccia.co.uk/
-// @version      0.2
+// @version      0.3
 // @description  make form filling faster | Ctrl + Q for candidate's name and Ctrl + Alt + 1 (He) | 2 (She) | 3 (They) for sex change | Click on candidate's name for name too... :)
 // @author       Leonardo Seccia
 // @match        https://central.karat.io/**/edit
@@ -11,6 +9,7 @@
 // @grant        none
 // ==/UserScript==
 
+// TODO: split into two files... name and gender
 (function() {
     'use strict';
 
@@ -38,10 +37,14 @@
             var endPos = curT.selectionEnd;
             var scrollTop = curT.scrollTop;
             updateReact(curT, curT.value.substring(0, startPos) + myValue + curT.value.substring(endPos,curT.value.length));
+            setTimeout(function(){
             curT.focus();
             curT.selectionStart = startPos + myValue.length;
             curT.selectionEnd = startPos + myValue.length;
             curT.scrollTop = scrollTop;
+            }, 50);
+
+
         } else {
             updateReact(curT.value + myValue);
             curT.focus();
